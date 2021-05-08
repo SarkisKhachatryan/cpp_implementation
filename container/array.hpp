@@ -78,7 +78,7 @@ public:
      */
     constexpr array& operator=(array&& rhs) noexcept;
 
-//////////////////////////     Element access     //////////////////////////
+///////////////////////////     Element access     //////////////////////////
 public:
     /**
      * @brief Returns a reference to the element at specified location pos, 
@@ -151,7 +151,7 @@ public:
 public:
 //TODO
 
-/////////////////////////////     Capacity     /////////////////////////////
+//////////////////////////////     Capacity     /////////////////////////////
 public:
     /**
      * @brief Checks if the container has no elements, 
@@ -179,7 +179,7 @@ public:
      */
     constexpr size_type max_size() const noexcept;
 
-////////////////////////////     Operations     ////////////////////////////
+/////////////////////////////     Operations     ////////////////////////////
 public:
     /**
      * @brief Assigns the given value value to all elements in the container
@@ -198,6 +198,12 @@ public:
 private:
     value_type _data[N];
 };
+
+//TODO non member functions
+
+/////////////////////////////////////////////////////////////////////////////
+//////////////////////////     Implementation     ///////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 template<typename value_type, size_type N>
 constexpr array<value_type,N>::array() {};
