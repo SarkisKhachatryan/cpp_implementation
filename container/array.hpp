@@ -24,7 +24,7 @@ class array {
 public:
     /**
      * @brief Construct a new array object
-     * default constructor, all elements are zero initialized
+     * default constructor, all elements are default initialized
      */
     constexpr array();
 
@@ -76,7 +76,7 @@ public:
      * @param rhs array to be moved
      * @return array& with moved elements of rhs
      */
-    constexpr array& operator=(array&& rhs) noexcept;
+    constexpr array& operator=(array&& rhs);
 
 ///////////////////////////     Element access     //////////////////////////
 public:
@@ -105,8 +105,8 @@ public:
      * @param pos position of the element to return
      * @return Reference to the requested element.  
      */
-    constexpr reference operator[](size_type pos);
-    constexpr const_reference operator[](size_type pos) const;
+    constexpr reference operator[](size_type pos) noexcept;
+    constexpr const_reference operator[](size_type pos) const noexcept;
 
 public:
     /**
@@ -117,8 +117,8 @@ public:
      * is equivalent to *c.begin().
      * @return reference to the first element
      */
-    constexpr reference front();
-    constexpr const_reference front() const;
+    constexpr reference front() noexcept;
+    constexpr const_reference front() const noexcept;
 
     /**
      * @brief Returns a reference to the last element in the container.
@@ -128,8 +128,8 @@ public:
      * is equivalent to *std::prev(c.end())
      * @return Reference to the last element 
      */
-    constexpr reference back();
-    constexpr const_reference back() const;
+    constexpr reference back() noexcept;
+    constexpr const_reference back() const noexcept;
 
     /**
      * @brief Returns pointer to the underlying array serving as element 
@@ -144,8 +144,8 @@ public:
      * containers, the returned pointer compares equal to the address 
      * of the first element.  
      */
-    constexpr pointer data();
-    constexpr const_pointer data() const;
+    constexpr pointer data() noexcept;
+    constexpr const_pointer data() const noexcept;
 
 /////////////////////////////     Iteretors     /////////////////////////////
 public:
@@ -160,7 +160,7 @@ public:
      * @return true if the container is empty
      * @return false otherwise
      */
-    [[nondiscard]] constexpr bool empty() const noexcept;
+    [[nodiscard]] constexpr bool empty() const noexcept;
 
     /**
      * @brief Returns the number of elements in the container, 
