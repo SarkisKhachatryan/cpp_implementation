@@ -10,10 +10,10 @@
 
 namespace skh 
 {
+
 template<typename T, std::size_t N>
 class array {
 ///////////////////////////////     TYPES     ///////////////////////////////
-
 public:
 using value_type = T;
 using size_type = std::size_t;
@@ -291,7 +291,6 @@ private:
 };
 
 //TODO non member functions
-
 } //namespace skh
 
 #endif //SKH_ARRAY_HPP
