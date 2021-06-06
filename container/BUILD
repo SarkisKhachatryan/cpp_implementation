@@ -1,4 +1,6 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
 
 cc_library(
     name = "array",
@@ -6,9 +8,9 @@ cc_library(
     visibility = ["//visibility:public"],
 )
 
-cc_library(
-    name = "array_test",
-    deps = [":array"],
-    srcs = ["main.cpp"],
-    visibility = ["//visibility:public"],
+cc_test (
+    name = "test_array",
+    srcs = ["test_array.cpp"],
+    deps = ["@com_google_googletest//:gtest_main", "array"],
 )
+
