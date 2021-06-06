@@ -1,5 +1,10 @@
+#include <stdexcept> //std::length_error, std::out_of_range
+#include <string> //std::string
+#include <initializer_list> //std::initializer_list
+
 #include <gtest/gtest.h>
-#include "array.hpp"
+
+#include "array.hpp" //skh::array
 
 using namespace skh;
 
@@ -103,4 +108,36 @@ TEST(array_test, element_access) {
     EXPECT_EQ(*ptr_b, 10);
     ptr_b = ptr_b + 2;
     EXPECT_EQ(*ptr_b, 30);
+}
+
+TEST(array_test, operations_and_capacity) {
+    array<int, 0> a;
+    EXPECT_TRUE(a.empty());
+    EXPECT_EQ(a.size(), 0);
+
+    struct X {
+        int x = 10;
+        double y = 1234.543;
+        std::string z = "EMPTY";
+    } x;
+
+    array<X, 2> b;
+    EXPECT_EQ(b[0].x, 10);
+    EXPECT_DOUBLE_EQ(b.at(1).y, 1234.543);
+    EXPECT_EQ(b.at(1).z, std::string{"EMPTY"});
+    X neo_x;
+    neo_x.x = 2345450;
+    neo_x.y = 11324.453672;
+    neo_x.z = "filled";
+
+    b.fill(neo_x);
+    EXPECT_EQ(b[0].x, 2345450);
+    EXPECT_DOUBLE_EQ(b.at(1).y, 11324.453672);
+    EXPECT_EQ(b.at(1).z, std::string{"filled"});
+
+    array<X, 2> c;
+    c.swap(b);
+    EXPECT_EQ(c[0].x, 2345450);
+    EXPECT_DOUBLE_EQ(c.at(1).y, 11324.453672);
+    EXPECT_EQ(c.at(1).z, std::string{"filled"});
 }
