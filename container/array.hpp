@@ -69,7 +69,6 @@ public:
      * @param rhs is an array to be copied
      */
     constexpr array(const array& rhs) {
-        std::cout << "copy\n";
         for(size_type i = 0; i < N; ++i) {
             _data[i] = rhs[i];
         }
@@ -80,24 +79,9 @@ public:
      * @param rhs is an array to be moved
      */
     constexpr array(array&& rhs) noexcept {
-        std::cout << "move\n";
-
         for(size_type i = 0; i < N; ++i) {
             _data[i] = std::move(rhs[i]);
         }
-    }
-
-    /**
-     * @brief copy assignment operator
-     * (copy-and-swap idiom)
-     * @param rhs array to be copied
-     * @return array& with elements of rhs
-     */
-    constexpr array& operator=(array& rhs) {
-        for(size_type i = 0; i < N; ++i) {
-            std::swap(_data[i], rhs[i]);
-        }
-        return *this;
     }
 
     /**
@@ -107,7 +91,7 @@ public:
      * @return array& with elements of rhs
      */
     constexpr array& operator=(const array& rhs) {
-        if constexpr(this != &rhs) {
+        if (this != &rhs) {
             std::copy(rhs.data(), rhs.data() + N, _data);
         }
         return *this;
@@ -119,7 +103,7 @@ public:
      * @return array& with moved elements of rhs
      */
     constexpr array& operator=(array&& rhs) noexcept {
-        if constexpr(this != &rhs) {
+        if (this != &rhs) {
             for (size_type i = 0; i < N; ++i) {
                 _data[i] = std::move(rhs[i]);
             }
