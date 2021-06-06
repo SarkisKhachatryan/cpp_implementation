@@ -125,14 +125,14 @@ public:
      * @return reference to element at index pos
      */
     constexpr reference at(size_type pos) {
-        if constexpr(pos >= N) {
+        if (pos >= N) {
             throw std::out_of_range("Invalid index, out of bounds.");
         }
         return _data[pos];
     }
 
     constexpr const_reference at(size_type pos) const {
-        if constexpr(pos >= N) {
+        if (pos >= N) {
             throw std::out_of_range("Invalid index, out of bounds.");
         }
         return _data[pos];

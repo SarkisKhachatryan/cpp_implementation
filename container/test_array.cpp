@@ -55,3 +55,52 @@ TEST(array_test, constructors) {
     EXPECT_EQ(static_cast<unsigned long>(1), g[1]);
 }
 
+TEST(array_test, element_access) {
+    array<int, 3> a{0, 1, 2};
+
+    EXPECT_EQ(a[0], 0);
+    EXPECT_EQ(a[1], 1);
+    EXPECT_EQ(a[2], 2);
+
+    EXPECT_EQ(a.at(0), 0);
+    EXPECT_EQ(a.at(1), 1);
+    EXPECT_EQ(a.at(2), 2);
+
+    EXPECT_EQ(a.front(), 0);
+    EXPECT_EQ(a.back(), 2);
+
+    int* ptr_a = a.data();
+    EXPECT_EQ(*ptr_a, 0);
+    ptr_a++;
+    EXPECT_EQ(*ptr_a, 1);
+    --ptr_a;
+    EXPECT_EQ(*ptr_a, 0);
+    ptr_a = ptr_a + 2;
+    EXPECT_EQ(*ptr_a, 2);
+
+    EXPECT_THROW(a.at(88), std::out_of_range);
+    EXPECT_EQ(a.at(2) = 90, 90);
+
+    const array<int, 3> b{10, 20, 30};
+    EXPECT_EQ(b.at(0), 10);
+    EXPECT_EQ(b.at(1), 20);
+    EXPECT_EQ(b.at(2), 30);
+
+    EXPECT_EQ(b[0], 10);
+    EXPECT_EQ(b[1], 20);
+    EXPECT_EQ(b[2], 30);
+
+    EXPECT_EQ(b.front(), 10);
+    EXPECT_EQ(b.back(), 30);
+
+    EXPECT_THROW(b.at(88), std::out_of_range);
+
+    const int* ptr_b = b.data();
+    EXPECT_EQ(*ptr_b, 10);
+    ptr_b++;
+    EXPECT_EQ(*ptr_b, 20);
+    --ptr_b;
+    EXPECT_EQ(*ptr_b, 10);
+    ptr_b = ptr_b + 2;
+    EXPECT_EQ(*ptr_b, 30);
+}
