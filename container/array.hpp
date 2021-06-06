@@ -25,7 +25,7 @@ using const_pointer = const value_type*;
 public:
     /**
      * @brief Construct a new array object
-     * default constructor, all elements are default initialized
+     * default constructor, elements are not initialized
      */
     constexpr array() {}
 
@@ -35,7 +35,7 @@ public:
      * @param list initializer list consisting of T type elements
      */
     constexpr array(const std::initializer_list<T>& list) {
-        if constexpr(list.size() != N) {
+        if (list.size() != N) {
             throw std::length_error("Initializer list size is not same as array's.");
         }
 
@@ -52,7 +52,7 @@ public:
      * @param list initializer list consisting of T type elements
      */
     constexpr array(std::initializer_list<T>&& list) {
-        if constexpr(list.size() != N) {
+        if (list.size() != N) {
             throw std::length_error("Initializer list size is not same as array's.");
         }
 
@@ -69,6 +69,7 @@ public:
      * @param rhs is an array to be copied
      */
     constexpr array(const array& rhs) {
+        std::cout << "copy\n";
         for(size_type i = 0; i < N; ++i) {
             _data[i] = rhs[i];
         }
@@ -79,6 +80,8 @@ public:
      * @param rhs is an array to be moved
      */
     constexpr array(array&& rhs) noexcept {
+        std::cout << "move\n";
+
         for(size_type i = 0; i < N; ++i) {
             _data[i] = std::move(rhs[i]);
         }
@@ -118,7 +121,7 @@ public:
     constexpr array& operator=(array&& rhs) noexcept {
         if constexpr(this != &rhs) {
             for (size_type i = 0; i < N; ++i) {
-                _data[i] = std::move(rhs[i])
+                _data[i] = std::move(rhs[i]);
             }
         }
         return *this;
@@ -139,14 +142,14 @@ public:
      */
     constexpr reference at(size_type pos) {
         if constexpr(pos >= N) {
-            throw std::out_of_range("Invalid index, out of bounds.")
+            throw std::out_of_range("Invalid index, out of bounds.");
         }
         return _data[pos];
     }
 
     constexpr const_reference at(size_type pos) const {
         if constexpr(pos >= N) {
-            throw std::out_of_range("Invalid index, out of bounds.")
+            throw std::out_of_range("Invalid index, out of bounds.");
         }
         return _data[pos];
     }
